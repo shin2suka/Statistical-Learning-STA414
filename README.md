@@ -4,22 +4,22 @@
 
 Probabilistic Models
 
-Regularization and Bayesian Methods
+Bayesian Methods
 
 Classification
 
-Decision Theory, and Optimization
+Decision Theory
 
-Unsupervised learning, Latent variable models
+Latent variable models
 
-Graphical models and Neural networks
+Graphical models
 
-Autodiff and Markov chain Monte Carlo
+Markov chain Monte Carlo
 
 Variational inference
 
-Reinforcement learning and gradient estimation
+Reinforcement learning
 
-Variational autoencoders and time series models
+Variational autoencoders
 
 GAN
