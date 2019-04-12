@@ -62,7 +62,7 @@ def p_x_g_theta(theta):
 
 # Metropolis-Hastings sampling
 def metropolis_hastings(iteration=10000):
-	accepted, samples = [], []
+	samples = []
 	i, x = 0, 0
 	while i < iteration:
 		u = np.random.uniform(0, 1)
@@ -71,37 +71,36 @@ def metropolis_hastings(iteration=10000):
 		fraction = func(x_new, x) / func(x, x_new)
 		if u < fraction:
 			x = x_new
-			accepted.append(x)
 		
 		samples.append(x)
 		i += 1
-	return accepted, samples
+	return samples
 
 
 if __name__ == '__main__':
-	# # Q1(a) estimate the fraction of photons that get absorbed on average
-	# print("estimate of p(g = 0|θ = 0):" + str(round(numerical_integration(g=0, theta=0), 2)))
+	# Q1(a) estimate the fraction of photons that get absorbed on average
+	print("estimate of p(g = 0|θ = 0):" + str(round(numerical_integration(g=0, theta=0), 2)))
 
-	# # Q1(b) plot rejection sampling
-	# x = rejection_sampling(iteration=10000)
-	# f2 = plt.figure()
-	# ax2 = f2.add_subplot(111)
-	# count, bins, ignored = plt.hist(x, 100, density=True)
-	# plt.title("Rejection Sampling")
+	# Q1(b) plot rejection sampling
+	x = rejection_sampling(iteration=10000)
+	f2 = plt.figure()
+	ax2 = f2.add_subplot(111)
+	count, bins, ignored = plt.hist(x, 100, density=True)
+	plt.title("Rejection Sampling")
 
-	# # Q1(c) estimatep(g = 0|θ = 0)
-	# print("the estimate (importance sampling): " + str(round(importance_sampling(), 2)))
+	# Q1(c) estimatep(g = 0|θ = 0)
+	print("the estimate (importance sampling): " + str(round(importance_sampling(), 2)))
 
-	# # Q1(d) plot unnormalized density p(x = 1.7, g = 1, θ)
-	# theta = np.linspace(-20,20,100) # 100 linearly spaced numbers
-	# y = p_x_g_theta(theta)
-	# f3 = plt.figure()
-	# ax3 = f3.add_subplot(111)
-	# plt.plot(theta, y)
-	# plt.title("Plot of Unnormalized Density: p(x = 1.7, g = 1, θ)")
+	# Q1(d) plot unnormalized density p(x = 1.7, g = 1, θ)
+	theta = np.linspace(-20,20,100) # 100 linearly spaced numbers
+	y = p_x_g_theta(theta)
+	f3 = plt.figure()
+	ax3 = f3.add_subplot(111)
+	plt.plot(theta, y)
+	plt.title("Plot of Unnormalized Density: p(x = 1.7, g = 1, θ)")
 
 	# Q1(e) plot Metropolis-Hastings sampling
-	theta_accepted, theta_samples = metropolis_hastings(iteration=100000)
+	theta_samples = metropolis_hastings(iteration=100000)
 	f4 = plt.figure()
 	ax4 = f4.add_subplot(111)
 	count, bins, ignored = plt.hist(theta_samples, 100, density=True)
@@ -116,13 +115,12 @@ if __name__ == '__main__':
 
 	# Q1(f) estimate the posterior probability
 	within = 0
-	for theta in theta_accepted:
+	for theta in theta_samples:
 		if -3 < theta < 3:
 			within +=1
-	estimate_posterior = within / len(theta_accepted)
+	estimate_posterior = within / len(theta_samples)
 	print("estimate of the posterior probability: " + str(round(estimate_posterior, 2)))
 	plt.show()
-
 
 
 
